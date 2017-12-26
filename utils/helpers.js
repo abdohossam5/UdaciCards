@@ -1,0 +1,1 @@
+export const getDeckKeyFromTitle = (title) => title.replace(/ /g, '_');
