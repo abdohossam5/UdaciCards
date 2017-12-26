@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import DeckCard from './DeckCard'
 import { ActivityIndicator, Platform } from 'react-native';
 import { lightblue, gray } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';
+import {getDecks} from '../utils/api';
 
 
 export default class DeckList extends Component {
@@ -12,6 +13,27 @@ export default class DeckList extends Component {
         decks: [],
         isFetching: false
     };
+
+    async componentDidMount(){
+        await this.loadDecks()
+    }
+
+    async componentDidUpdate(){
+        await this.loadDecks()
+    }
+
+    async loadDecks(){
+        let rawDecks = await getDecks();
+        let decks = Object.keys(rawDecks).reduce((decks, key) => {
+            decks.push({
+                title: rawDecks[key].title,
+                numberOfCards: rawDecks[key].questions.length,
+                key
+            });
+            return decks;
+        }, []);
+        this.setState({decks})
+    }
 
     render(){
         const {decks, isFetching} = this.state;
@@ -34,7 +56,10 @@ export default class DeckList extends Component {
         }
         return (
           <View style={styles.container}>
-              <DeckCard></DeckCard>
+              <FlatList
+                data={decks}
+                renderItem={({item}) => (<DeckCard key={item.key} title={item.title} numberOfCards={item.numberOfCards}/>)}
+              />
           </View>
         )
     }
@@ -43,8 +68,6 @@ export default class DeckList extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'row',
-        alignSelf: 'center',
-        justifyContent: 'center'
+        justifyContent: 'flex-start',
     }
 });

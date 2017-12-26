@@ -6,12 +6,14 @@ const initialState = {};
 
 export const getDecks = async () => {
   let Decks = await AsyncStorage.getItem(STORAGE_KEY);
-  if(!Decks) Decks = {};
+  if(!Decks) return {};
   return JSON.parse(Decks);
 };
 
-export const getDeck = async (key) => {
+export const getDeck = async ({key, title}) => {
+    if(title && !key) key = getDeckKeyFromTitle(title);
     let Decks = await AsyncStorage.getItem(STORAGE_KEY);
+    if(Decks) Decks = JSON.parse(Decks);
     return (Decks && Decks[key]) || {};
 };
 

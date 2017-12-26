@@ -4,14 +4,14 @@ import {white, blue, lightblue} from '../utils/colors';
 
 export default DeckCard = ({title, numberOfCards = 0}) => (
   <View style={styles.cardCont}>
-      <Text style={styles.titleTxt}>Card</Text>
+      <Text style={styles.titleTxt}>{title}</Text>
       <Text style={styles.countTxt}>{numberOfCards} Cards</Text>
   </View>
 )
 
 const styles = StyleSheet.create({
     cardCont: {
-        flex: 1,
+        // flex: 1,
         height: 150,
         // flexDirection: 'row',
         backgroundColor: white,

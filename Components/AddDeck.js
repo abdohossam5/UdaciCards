@@ -1,16 +1,41 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import MyTextInput from './MyTextInput';
 import {blue, white} from "../utils/colors";
+import {saveDeckTitle, getDeck} from '../utils/api';
 
 
 export default class AddDeck extends Component {
     state = {
-        name: ''
+        name: '',
+        bounceValue: new Animated.Value(0)
+    };
+
+    submit = async () => {
+        const {name, bounceValue} = this.state;
+        let valid = true;
+        if (!name) valid = false;
+
+        let keyExist = await getDeck({title:name});
+        if(keyExist && keyExist.title) valid = false;
+
+        if (!valid) {
+            return Animated.sequence([
+                Animated.timing(bounceValue, {duration: 200, toValue: -10}),
+                Animated.timing(bounceValue, {duration: 200, toValue: 10}),
+                Animated.timing(bounceValue, {duration: 200, toValue: -10}),
+                Animated.timing(bounceValue, {duration: 200, toValue: 10}),
+                Animated.timing(bounceValue, {duration: 200, toValue: 0})
+            ]).start()
+        }
+
+
+        await saveDeckTitle(name);
+        this.props.navigation.navigate('DeckList')
     };
 
     render() {
-        const {name} = this.state;
+        const {name, bounceValue} = this.state;
         return (
           <View style={styles.container}>
               <Text style={styles.mainTxt}>What is the title of your new deck?</Text>
@@ -19,8 +44,8 @@ export default class AddDeck extends Component {
                 onChangeText={(text) => this.setState({name:text})}
                 placeholder="Deck Name"
               />
-              <TouchableOpacity style={styles.submitBtn}>
-                  <Text style={styles.submitTxt}>Submit</Text>
+              <TouchableOpacity style={[styles.submitBtn]} onPress={this.submit}>
+                  <Animated.Text style={[styles.submitTxt, {transform: [{translateX:bounceValue}]}]}>Submit</Animated.Text>
               </TouchableOpacity>
           </View>
         )
