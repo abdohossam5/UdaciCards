@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import {StackNavigator, TabNavigator } from 'react-navigation';
 import DeckList from './Components/DeckList';
+import DeckView from './Components/DeckView';
 import AddDeck from './Components/AddDeck';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import {blue} from './utils/colors';
+import {white, blue} from './utils/colors';
 import {Constants} from 'expo';
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
@@ -63,7 +64,17 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
    Home:{
        screen: Tabs
-   }
+   },
+    DeckView:{
+       screen: DeckView,
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.title}`,
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: blue
+            }
+        })
+    }
 });
 
 export default class App extends React.Component {

@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {white, blue, lightblue} from '../utils/colors';
 
-export default DeckCard = ({title, numberOfCards = 0}) => (
-  <View style={styles.cardCont}>
+export default DeckCard = ({title, numberOfCards = 0, viewDeck}) => (
+  <TouchableOpacity style={styles.cardCont} onPress={() => viewDeck()}>
       <Text style={styles.titleTxt}>{title}</Text>
       <Text style={styles.countTxt}>{numberOfCards} Cards</Text>
-  </View>
+  </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({

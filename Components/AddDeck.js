@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     submitBtn: {
         margin: 50,
         borderRadius: 8,
-        height: 30,
-        width: 150,
+        height: 50,
+        width: 200,
         padding: 20,
         backgroundColor: blue,
         alignSelf: 'center',
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
     submitTxt: {
         textAlign: 'center',
         color: white,
-        fontSize: 16
+        fontSize: 25
     }
 });

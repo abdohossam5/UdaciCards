@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import DeckCard from './DeckCard'
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import DeckCard from './DeckCard';
 import { ActivityIndicator, Platform } from 'react-native';
 import { lightblue, gray } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -35,6 +35,10 @@ export default class DeckList extends Component {
         this.setState({decks})
     }
 
+    navigateToDeckView = (title, numberOfCards) => {
+        this.props.navigation.navigate('DeckView', {title, numberOfCards})
+    };
+
     render(){
         const {decks, isFetching} = this.state;
 
@@ -58,7 +62,14 @@ export default class DeckList extends Component {
           <View style={styles.container}>
               <FlatList
                 data={decks}
-                renderItem={({item}) => (<DeckCard key={item.key} title={item.title} numberOfCards={item.numberOfCards}/>)}
+                renderItem={({item}) => (
+                  <DeckCard
+                    key={item.key}
+                    title={item.title}
+                    numberOfCards={item.numberOfCards}
+                    viewDeck={() => this.navigateToDeckView(item.title, item.numberOfCards)}
+                  />
+                )}
               />
           </View>
         )
