@@ -1,5 +1,7 @@
 export const purple = '#292477';
 export const gray = '#757575';
+export const bottomGray = 'rgba(0,0,0,0.24)';
+export const lightGray = '#e6e6ed';
 export const white = '#fff';
 export const red = '#b71845';
 export const orange = '#f26f28';

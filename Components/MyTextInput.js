@@ -1,0 +1,44 @@
+import React, {Component} from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {blue, gray, lightGray, bottomGray} from '../utils/colors';
+
+export default class MyTextInput extends Component{
+
+    state = {
+      isFocused: false
+    };
+
+    toggleInputFocus = (isFocused) => {
+        this.setState({ isFocused })
+    };
+
+    render(){
+        const {onFocusBorderColor = blue, ...props} = this.props;
+        const {isFocused} = this.state;
+        return (
+          <View style={[styles.container, {borderColor: isFocused ? onFocusBorderColor: bottomGray}]}>
+              <TextInput
+                style={[styles.input]}
+                {...props}
+                onFocus={()=> this.toggleInputFocus(true)}
+                onBlur={()=> this.toggleInputFocus(false)}
+              />
+          </View>
+        )
+    }
+}
+
+const styles = StyleSheet.create({
+   container:{
+       flexDirection: 'row',
+       height: 40,
+       backgroundColor: 'transparent',
+       // borderColor: gray,
+       padding: 10,
+       margin: 20,
+       borderBottomWidth: 1.5
+   },
+    input: {
+       flex:1
+    }
+});
