@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import {StackNavigator, TabNavigator } from 'react-navigation';
 import DeckList from './Components/DeckList';
 import AddDeck from './Components/AddDeck';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import {blue} from './utils/colors';
+import {Constants} from 'expo';
 
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={{backgroundColor:backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 const Tabs = TabNavigator({
    DeckList: {
@@ -49,7 +56,7 @@ const Tabs = TabNavigator({
     navigationOptions:{header: null},
     animationEnabled: true,
     tabBarOptions: {
-        activeTintColor: '#e91e63',
+        activeTintColor: blue,
     },
 } );
 
@@ -60,13 +67,14 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <MainNavigator/>
-      </View>
-    );
-  }
+    render() {
+        return (
+          <View style={styles.container}>
+              <MyStatusBar backgroundColor={blue} barStyle="light-content"/>
+              <MainNavigator/>
+          </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
