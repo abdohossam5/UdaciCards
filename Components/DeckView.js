@@ -1,31 +1,12 @@
 import React, { Component } from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import {blue, lightblue, white} from '../utils/colors';
-import {getDeckKeyFromTitle} from '../utils/helpers'
-import {getDeck} from '../utils/api'
+import {getDeckKeyFromTitle} from '../utils/helpers';
+import {getDeck} from '../utils/api';
+import {connect} from 'react-redux';
 
-export default class DeckView extends Component {
+class DeckView extends Component {
 
-    state = {
-        title: '',
-        numberOfCards: ''
-    };
-
-    async componentDidMount(){
-        await this.loadDeck()
-    }
-
-
-    loadDeck = async () => {
-        const {title} = this.props.navigation.state.params;
-        let deck = await getDeck({title});
-        if(deck.title !== title || deck.questions.length !== this.state.numberOfCards){
-            this.setState({
-                title: deck.title,
-                numberOfCards: deck.questions.length
-            })
-        }
-    };
 
     addCard = () => {
         const {title} = this.props.navigation.state.params;
@@ -33,7 +14,7 @@ export default class DeckView extends Component {
     };
 
     render(){
-        const {title, numberOfCards} = this.state;
+        const {title, numberOfCards} = this.props;
         return (
           <View style={styles.container}>
               <Text style={styles.mainTxt}>{title}</Text>
@@ -97,3 +78,15 @@ const styles = StyleSheet.create({
         fontSize: 25
     }
 });
+
+
+const mapStateToProps = (decks, {navigation}) => {
+    const {title} = navigation.state.params;
+    let key = getDeckKeyFromTitle(title);
+    return {
+        title: decks[key].title,
+        numberOfCards: decks[key].questions.length
+    }
+};
+
+export default connect(mapStateToProps)(DeckView);
