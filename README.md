@@ -14,7 +14,7 @@ Udacity React Nanodegree - React Native module project
 ## How To Test
 
 * Install Packages
-#### npm install
+#### `npm install`
 
 * test ios
 #### `npm run ios`
