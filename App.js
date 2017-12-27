@@ -4,6 +4,7 @@ import {StackNavigator, TabNavigator } from 'react-navigation';
 import DeckList from './Components/DeckList';
 import DeckView from './Components/DeckView';
 import AddDeck from './Components/AddDeck';
+import AddCard from './Components/AddCard';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import {white, blue} from './utils/colors';
 import {Constants} from 'expo';
@@ -74,6 +75,16 @@ const MainNavigator = StackNavigator({
                 backgroundColor: blue
             }
         })
+    },
+    AddCard: {
+        screen: AddCard,
+        navigationOptions: {
+            title: 'Add Card',
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: blue
+            }
+        }
     }
 });
 
