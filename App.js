@@ -14,6 +14,7 @@ import thunk from 'redux-thunk';
 import reducer from './reducers';
 import {Provider} from 'react-redux';
 import {rehydrate} from './actions';
+import {setLocalNotification} from './utils/helpers'
 
 /** store Initialization **/
 const store = createStore(reducer, applyMiddleware(thunk));
@@ -110,6 +111,11 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+
+    componentDidMount(){
+        setLocalNotification()
+    }
+
     render() {
         return (
           <View style={styles.container}>
