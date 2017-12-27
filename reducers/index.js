@@ -14,6 +14,16 @@ export default decks = (state = {}, action) => {
                 ...action.deck
             };
 
+        case Actions.CARD_ADDED:
+            const { key, card } = action;
+            return {
+              ...state,
+                [key]:{
+                  ...state[key],
+                    questions: state[key].questions.concat([card])
+                }
+            };
+
         default:
             return state;
     }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
-import {blue, lightblue, white} from "../utils/colors";
+import {blue, white} from "../utils/colors";
 import MyTextInput from './MyTextInput';
-import {addCardToDeck} from "../utils/api";
+import {connect} from 'react-redux';
+import * as Actions from '../actions';
 
-export default class AddCard extends Component {
+class AddCard extends Component {
 
     state = {
         question: '',
@@ -32,10 +33,8 @@ export default class AddCard extends Component {
             ]).start()
         }
 
-        await addCardToDeck(key, {question, answer});
-        const {onNavigateBack} = this.props.navigation.state.params;
-        if(onNavigateBack) onNavigateBack();
-        this.props.navigation.goBack('AddCard')
+        this.props.addCardToDeck(key, {question, answer});
+        this.props.navigation.goBack();
     };
 
 
@@ -100,3 +99,9 @@ const styles = StyleSheet.create({
         fontSize: 25
     }
 });
+
+const mapDispatchToProps = (dispatch) => ({
+    addCardToDeck: (key, {question, answer}) => dispatch(Actions.addCardToDeck(key, {question, answer}))
+});
+
+export default connect(null, mapDispatchToProps)(AddCard);

@@ -22,3 +22,15 @@ export const requestAddDeck = (name) => async (dispatch) => {
     let deck = await Api.saveDeckTitle(name);
     dispatch(addDeck(deck))
 };
+
+export const CARD_ADDED = 'CARD_ADDED';
+export const cardAdded = (key, card) => ({
+    type: CARD_ADDED,
+    card,
+    key
+});
+
+export const addCardToDeck = (key, {question, answer}) => async (dispatch) => {
+    await Api.addCardToDeck(key, {question, answer});
+    dispatch(cardAdded(key, {question, answer}))
+};
