@@ -5,46 +5,26 @@ import { ActivityIndicator, Platform } from 'react-native';
 import { lightblue, gray } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';
 import {getDecks} from '../utils/api';
+import {connect} from 'react-redux';
 
 
-export default class DeckList extends Component {
+class DeckList extends Component {
 
-    state = {
-        decks: [],
-        isFetching: false
-    };
-
-    async componentDidMount(){
-        await this.loadDecks()
-    }
-
-    async componentDidUpdate(){
-        await this.loadDecks()
-    }
-
-    async loadDecks(){
-        let rawDecks = await getDecks();
-        let decks = Object.keys(rawDecks).reduce((decks, key) => {
-            decks.push({
-                title: rawDecks[key].title,
-                numberOfCards: rawDecks[key].questions.length,
-                key
-            });
-            return decks;
-        }, []);
-        this.setState({decks})
-    }
+    // state = {
+    //     isFetching: true
+    // };
 
     navigateToDeckView = (title, numberOfCards) => {
         this.props.navigation.navigate('DeckView', {title, numberOfCards})
     };
 
     render(){
-        const {decks, isFetching} = this.state;
+        // const {isFetching} = this.state;
+        const {decks} = this.props;
 
-        if(isFetching){
-            return (<View style={styles.container}><ActivityIndicator size="large" color={lightblue} /></View>)
-        }
+        // if(isFetching){
+        //     return (<View style={styles.container}><ActivityIndicator size="large" color={lightblue} /></View>)
+        // }
 
         if(!decks.length){
             return (
@@ -82,3 +62,16 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     }
 });
+
+const mapStateToProps = (rawDecks) => ({
+    decks: Object.keys(rawDecks).reduce((decks, key) => {
+        decks.push({
+            title: rawDecks[key].title,
+            numberOfCards: rawDecks[key].questions.length,
+            key
+        });
+        return decks;
+    }, [])
+});
+
+export default connect(mapStateToProps)(DeckList);

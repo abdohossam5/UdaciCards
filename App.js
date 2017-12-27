@@ -8,6 +8,16 @@ import AddCard from './Components/AddCard';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import {white, blue} from './utils/colors';
 import {Constants} from 'expo';
+import {createStore, compose, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './reducers';
+import {Provider} from 'react-redux';
+import {rehydrate} from './actions';
+
+/** store Initialization **/
+const store = createStore(reducer, applyMiddleware(thunk));
+store.dispatch(rehydrate());
+
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
   <View style={{backgroundColor:backgroundColor, height: Constants.statusBarHeight}}>
@@ -93,7 +103,9 @@ export default class App extends React.Component {
         return (
           <View style={styles.container}>
               <MyStatusBar backgroundColor={blue} barStyle="light-content"/>
-              <MainNavigator/>
+              <Provider store={store}>
+                  <MainNavigator/>
+              </Provider>
           </View>
         );
     }
