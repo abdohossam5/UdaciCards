@@ -8,6 +8,12 @@ export default decks = (state = {}, action) => {
               ...action.decks
             };
 
+        case Actions.ADD_DECK:
+            return {
+                ...state,
+                ...action.deck
+            };
+
         default:
             return state;
     }

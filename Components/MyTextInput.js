@@ -13,10 +13,10 @@ export default class MyTextInput extends Component{
     };
 
     render(){
-        const {onFocusBorderColor = blue, ...props} = this.props;
+        const {onFocusBorderColor = blue, overrideStyle= {}, ...props} = this.props;
         const {isFocused} = this.state;
         return (
-          <View style={[styles.container, {borderColor: isFocused ? onFocusBorderColor: bottomGray}]}>
+          <View style={[styles.container, overrideStyle, {borderColor: isFocused ? onFocusBorderColor: bottomGray}]}>
               <TextInput
                 style={[styles.input]}
                 {...props}

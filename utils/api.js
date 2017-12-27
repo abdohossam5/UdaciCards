@@ -21,7 +21,10 @@ export const saveDeckTitle = async (title) => {
     const key = getDeckKeyFromTitle(title);
     await AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
         [key]: {title, questions: []}
-    }))
+    }));
+    let decks = await AsyncStorage.getItem(STORAGE_KEY);
+    decks = JSON.parse(decks);
+    return {[key]: decks[key]}
 };
 
 export const addCardToDeck = async (key, {question, answer}) => {

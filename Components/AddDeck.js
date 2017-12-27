@@ -3,9 +3,11 @@ import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import MyTextInput from './MyTextInput';
 import {blue, white} from "../utils/colors";
 import {saveDeckTitle, getDeck} from '../utils/api';
+import {connect} from 'react-redux';
+import {requestAddDeck} from '../actions';
 
 
-export default class AddDeck extends Component {
+class AddDeck extends Component {
     state = {
         name: '',
         bounceValue: new Animated.Value(0)
@@ -30,7 +32,7 @@ export default class AddDeck extends Component {
         }
 
 
-        await saveDeckTitle(name);
+        await this.props.addDeck(name);
         this.props.navigation.navigate('DeckList')
     };
 
@@ -83,3 +85,9 @@ const styles = StyleSheet.create({
         fontSize: 25
     }
 });
+
+const mapDispatchToProps = (dispatch) => ({
+    addDeck: (name) => dispatch(requestAddDeck(name))
+});
+
+export default connect(null, mapDispatchToProps)(AddDeck);

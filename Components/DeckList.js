@@ -63,7 +63,11 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (rawDecks) => ({
+const mapStateToProps = (rawDecks) => {
+
+  console.log(rawDecks)
+
+  return {
     decks: Object.keys(rawDecks).reduce((decks, key) => {
         decks.push({
             title: rawDecks[key].title,
@@ -72,6 +76,7 @@ const mapStateToProps = (rawDecks) => ({
         });
         return decks;
     }, [])
-});
+}
+};
 
 export default connect(mapStateToProps)(DeckList);
