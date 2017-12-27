@@ -1,30 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import DeckCard from './DeckCard';
-import { ActivityIndicator, Platform } from 'react-native';
-import { lightblue, gray } from '../utils/colors';
+import { Platform } from 'react-native';
+import { gray } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';
-import {getDecks} from '../utils/api';
 import {connect} from 'react-redux';
 
 
 class DeckList extends Component {
-
-    // state = {
-    //     isFetching: true
-    // };
 
     navigateToDeckView = (title, numberOfCards) => {
         this.props.navigation.navigate('DeckView', {title, numberOfCards})
     };
 
     render(){
-        // const {isFetching} = this.state;
         const {decks} = this.props;
-
-        // if(isFetching){
-        //     return (<View style={styles.container}><ActivityIndicator size="large" color={lightblue} /></View>)
-        // }
 
         if(!decks.length){
             return (
@@ -63,11 +53,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (rawDecks) => {
-
-  console.log(rawDecks)
-
-  return {
+const mapStateToProps = (rawDecks) => ({
     decks: Object.keys(rawDecks).reduce((decks, key) => {
         decks.push({
             title: rawDecks[key].title,
@@ -76,7 +62,6 @@ const mapStateToProps = (rawDecks) => {
         });
         return decks;
     }, [])
-}
-};
+});
 
 export default connect(mapStateToProps)(DeckList);
