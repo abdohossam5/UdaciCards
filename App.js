@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
+import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import {StackNavigator, TabNavigator } from 'react-navigation';
 import DeckList from './Components/DeckList';
 import DeckView from './Components/DeckView';
@@ -7,7 +7,7 @@ import AddDeck from './Components/AddDeck';
 import AddCard from './Components/AddCard';
 import Quiz from './Components/Quiz';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import {white, blue} from './utils/colors';
+import {white, blue, purple, lightblue} from './utils/colors';
 import {Constants} from 'expo';
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
@@ -39,6 +39,9 @@ const Tabs = TabNavigator({
                color={tintColor}
              />
            ),
+       },
+       tabBarOptions:{
+           activeTintColor: purple,
        }
    },
    AddDeck: {
@@ -70,7 +73,18 @@ const Tabs = TabNavigator({
     navigationOptions:{header: null},
     animationEnabled: true,
     tabBarOptions: {
-        activeTintColor: blue,
+        activeTintColor: purple,
+        style:{
+            height: 56,
+            backgroundColor: Platform.OS === 'ios'? white : lightblue,
+            shadowColor: 'rgba(0,0,0,0.24)',
+            shadowRadius: 5,
+            shadowOpacity: 1,
+            shadowOffset:{
+                width: 0,
+                height:3
+            }
+        }
     },
 } );
 

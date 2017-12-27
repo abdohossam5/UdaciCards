@@ -22,6 +22,7 @@ export default class MyTextInput extends Component{
                 {...props}
                 onFocus={()=> this.toggleInputFocus(true)}
                 onBlur={()=> this.toggleInputFocus(false)}
+                underlineColorAndroid='rgba(0,0,0,0)'
               />
           </View>
         )

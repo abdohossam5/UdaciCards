@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
+import {View, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import MyTextInput from './MyTextInput';
 import {blue, white} from "../utils/colors";
 import {saveDeckTitle, getDeck} from '../utils/api';
@@ -39,7 +39,7 @@ class AddDeck extends Component {
     render() {
         const {name, bounceValue} = this.state;
         return (
-          <View style={styles.container}>
+          <KeyboardAvoidingView style={styles.container}>
               <Text style={styles.mainTxt}>What is the title of your new deck?</Text>
               <MyTextInput
                 value={name}
@@ -49,7 +49,8 @@ class AddDeck extends Component {
               <TouchableOpacity style={[styles.submitBtn]} onPress={this.submit}>
                   <Animated.Text style={[styles.submitTxt, {transform: [{translateX:bounceValue}]}]}>Submit</Animated.Text>
               </TouchableOpacity>
-          </View>
+              <View style={{ height: 85 }} />
+          </KeyboardAvoidingView>
         )
     }
 }
