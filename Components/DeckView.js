@@ -12,6 +12,11 @@ class DeckView extends Component {
         this.props.navigation.navigate('AddCard', {key: getDeckKeyFromTitle(title)})
     };
 
+    startQuiz = () => {
+        const {title} = this.props.navigation.state.params;
+        this.props.navigation.navigate('Quiz', {key: getDeckKeyFromTitle(title)})
+    };
+
     render(){
         const {title, numberOfCards} = this.props;
         return (
@@ -22,7 +27,7 @@ class DeckView extends Component {
                   <TouchableOpacity style={[styles.btn, {backgroundColor: 'transparent'}]} onPress={this.addCard}>
                       <Text style={[styles.btnTxt,{color: blue}]}>Add Card</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btn}>
+                  <TouchableOpacity style={styles.btn} onPress={this.startQuiz}>
                       <Text style={styles.btnTxt}>Start Quiz</Text>
                   </TouchableOpacity>
               </View>
