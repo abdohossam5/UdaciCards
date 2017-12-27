@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {blue, lightblue, white} from '../utils/colors';
 import {getDeckKeyFromTitle} from '../utils/helpers';
-import {getDeck} from '../utils/api';
 import {connect} from 'react-redux';
 
 class DeckView extends Component {
@@ -10,7 +9,7 @@ class DeckView extends Component {
 
     addCard = () => {
         const {title} = this.props.navigation.state.params;
-        this.props.navigation.navigate('AddCard', {key: getDeckKeyFromTitle(title), onNavigateBack: this.loadDeck})
+        this.props.navigation.navigate('AddCard', {key: getDeckKeyFromTitle(title)})
     };
 
     render(){
