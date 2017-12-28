@@ -10,7 +10,7 @@ export function clearLocalNotification () {
       .then(Notifications.cancelAllScheduledNotificationsAsync)
 };
 
-function createNotification () {
+const createNotification = () => {
     return {
         title: 'Psst!',
         body: "You haven't studied today!",
@@ -24,9 +24,9 @@ function createNotification () {
             vibrate: true,
         }
     }
-}
+};
 
-export function setLocalNotification () {
+export const setLocalNotification = () => {
     AsyncStorage.getItem(NOTIFICATION_KEY)
       .then(JSON.parse)
       .then((data) => {
@@ -55,4 +55,4 @@ export function setLocalNotification () {
                 })
           }
       })
-}
+};
