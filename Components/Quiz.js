@@ -14,6 +14,10 @@ class Quiz extends Component {
         resultOpacity: new Animated.Value(0)
     };
 
+    componentWillUnmount() {
+        this.state.resultOpacity.removeAllListeners()
+    }
+
     handleSubmit = (correct) => {
         let {scoreSheet, currentIdx} = this.state;
         const {questions} = this.props;
@@ -48,8 +52,9 @@ class Quiz extends Component {
         const title = navigation.state.params.key.replace(/_/g, ' ');
 
         const resetAction = NavigationActions.reset({
-            index: 0,
+            index: 1,
             actions: [
+                NavigationActions.navigate({ routeName: 'Home'}),
                 NavigationActions.navigate({ routeName: 'DeckView', params:{title}})
             ]
         });
