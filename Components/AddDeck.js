@@ -33,7 +33,8 @@ class AddDeck extends Component {
 
 
         await this.props.addDeck(name);
-        this.props.navigation.navigate('DeckList')
+        this.setState({name: ''});
+        this.props.navigation.navigate('DeckView', {title: name})
     };
 
     render() {
