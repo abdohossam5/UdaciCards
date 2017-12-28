@@ -3,6 +3,8 @@ import {View, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import {connect} from 'react-redux';
 import Question from './Question';
 import * as Animatable from 'react-native-animatable';
+import {blue, white} from "../utils/colors";
+import { NavigationActions } from 'react-navigation';
 
 class Quiz extends Component {
     state = {
@@ -14,7 +16,7 @@ class Quiz extends Component {
 
     handleSubmit = (correct) => {
         let {scoreSheet, currentIdx} = this.state;
-        const {questions} = this.props
+        const {questions} = this.props;
         scoreSheet[currentIdx] = correct;
         this.setState({
             scoreSheet
@@ -30,6 +32,28 @@ class Quiz extends Component {
                 })
             }
         })
+    };
+
+    restart = () => {
+        this.setState({
+            viewMode: 'question',
+            scoreSheet: [],
+            currentIdx: 0,
+            resultOpacity: new Animated.Value(0)
+        })
+    };
+
+    backToDeck = () => {
+        const {navigation} = this.props;
+        const title = navigation.state.params.key.replace(/_/g, ' ');
+
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: 'DeckView', params:{title}})
+            ]
+        });
+        navigation.dispatch(resetAction);
     };
 
     render(){
@@ -52,11 +76,17 @@ class Quiz extends Component {
               )}
 
               {viewMode === 'result' && (
-                <View style={styles.center}>
-                    <Animatable.Text animation="fadeIn" duration={2000} style={[styles.resultTxt]}>
+                <Animatable.View  animation="fadeIn" duration={2000} style={styles.center}>
+                    <Text style={[styles.resultTxt]}>
                         {`${correct}/${questions.length}`}
-                    </Animatable.Text>
-                </View>
+                    </Text>
+                    <TouchableOpacity style={[styles.btn, {backgroundColor: 'transparent'}]} onPress={this.restart}>
+                        <Text style={[styles.btnTxt,{color: blue}]}>Restart Quiz</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn} onPress={this.backToDeck}>
+                        <Text style={styles.btnTxt}>Back to Deck</Text>
+                    </TouchableOpacity>
+                </Animatable.View>
               )}
           </View>
         )
@@ -79,6 +109,23 @@ const styles = StyleSheet.create({
         fontSize: 100,
         paddingTop: 20,
         paddingBottom: 20
+    },
+    btn: {
+        margin: 20,
+        borderRadius: 8,
+        height: 50,
+        width: 200,
+        padding: 20,
+        borderWidth: 2,
+        borderColor: blue,
+        backgroundColor: blue,
+        alignSelf: 'center',
+        justifyContent: 'center'
+    },
+    btnTxt: {
+        textAlign: 'center',
+        color: white,
+        fontSize: 25
     }
 });
 
