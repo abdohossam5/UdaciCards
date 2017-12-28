@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {blue, gray, lightGray, bottomGray} from '../utils/colors';
+import {blue, bottomGray} from '../utils/colors';
 
 export default class MyTextInput extends Component{
 

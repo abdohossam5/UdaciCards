@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, Animated} from 'react-native';
 import MyTextInput from './MyTextInput';
 import {blue, white} from "../utils/colors";
-import {saveDeckTitle, getDeck} from '../utils/api';
+import {getDeck} from '../utils/api';
 import {connect} from 'react-redux';
 import {requestAddDeck} from '../actions';
 
