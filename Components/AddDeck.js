@@ -32,7 +32,7 @@ class AddDeck extends Component {
         }
 
 
-        await this.props.addDeck(name);
+        await this.props.requestAddDeck(name);
         this.setState({name: ''});
         this.props.navigation.navigate('DeckView', {title: name})
     };
@@ -88,8 +88,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    addDeck: (name) => dispatch(requestAddDeck(name))
-});
-
-export default connect(null, mapDispatchToProps)(AddDeck);
+export default connect(null, {requestAddDeck})(AddDeck);

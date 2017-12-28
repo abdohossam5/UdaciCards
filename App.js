@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
-import {white, blue, purple, lightblue} from './utils/colors';
+import { blue} from './utils/colors';
 import {Constants} from 'expo';
-import {createStore, compose, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 import {Provider} from 'react-redux';
