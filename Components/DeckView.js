@@ -27,7 +27,10 @@ class DeckView extends Component {
                   <TouchableOpacity style={[styles.btn, {backgroundColor: 'transparent'}]} onPress={this.addCard}>
                       <Text style={[styles.btnTxt,{color: blue}]}>Add Card</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btn} onPress={this.startQuiz}>
+                  <TouchableOpacity
+                    style={[styles.btn, {opacity: numberOfCards === 0 ? 0.5 : 1}]}
+                    onPress={this.startQuiz}
+                    disabled={numberOfCards === 0}>
                       <Text style={styles.btnTxt}>Start Quiz</Text>
                   </TouchableOpacity>
               </View>
