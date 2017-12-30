@@ -7,14 +7,9 @@ import {connect} from 'react-redux';
 class DeckView extends Component {
 
 
-    addCard = () => {
+    btnAction = btn => {
         const {title} = this.props.navigation.state.params;
-        this.props.navigation.navigate('AddCard', {key: getDeckKeyFromTitle(title)})
-    };
-
-    startQuiz = () => {
-        const {title} = this.props.navigation.state.params;
-        this.props.navigation.navigate('Quiz', {key: getDeckKeyFromTitle(title)})
+        this.props.navigation.navigate(btn, {key: getDeckKeyFromTitle(title)})
     };
 
     render(){
@@ -24,12 +19,12 @@ class DeckView extends Component {
               <Text style={styles.mainTxt}>{title}</Text>
               <Text style={styles.caption}>{numberOfCards} Cards</Text>
               <View style={styles.btnContainer}>
-                  <TouchableOpacity style={[styles.btn, {backgroundColor: 'transparent'}]} onPress={this.addCard}>
+                  <TouchableOpacity style={[styles.btn, {backgroundColor: 'transparent'}]} onPress={() => this.btnAction('AddCard')}>
                       <Text style={[styles.btnTxt,{color: blue}]}>Add Card</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={[styles.btn, {opacity: numberOfCards === 0 ? 0.5 : 1}]}
-                    onPress={this.startQuiz}
+                    onPress={() => this.btnAction('Quiz')}
                     disabled={numberOfCards === 0}>
                       <Text style={styles.btnTxt}>Start Quiz</Text>
                   </TouchableOpacity>
