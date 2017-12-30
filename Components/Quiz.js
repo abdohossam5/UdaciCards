@@ -5,6 +5,7 @@ import Question from './Question';
 import * as Animatable from 'react-native-animatable';
 import {blue, white} from "../utils/colors";
 import { NavigationActions } from 'react-navigation';
+import {setLocalNotification} from "../utils/helpers";
 
 class Quiz extends Component {
     state = {
@@ -16,6 +17,11 @@ class Quiz extends Component {
 
     componentWillUnmount() {
         this.state.resultOpacity.removeAllListeners()
+    }
+
+    componentDidMount() {
+        // clear scheduled notifications and schedule a new one
+        setLocalNotification();
     }
 
     handleSubmit = (correct) => {
