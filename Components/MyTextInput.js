@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View, Keyboard} from 'react-native';
 import {blue, bottomGray} from '../utils/colors';
 
 export default class MyTextInput extends Component{
@@ -9,6 +9,7 @@ export default class MyTextInput extends Component{
     };
 
     toggleInputFocus = (isFocused) => {
+        if(!isFocused) Keyboard.dismiss();
         this.setState({ isFocused })
     };
 
